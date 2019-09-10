@@ -8,7 +8,6 @@
     <Folder Include="Paging\" />
     <Folder Include="Scripts\" />
     <Folder Include="Migrations\" />
-    <Folder Include="DataContext\" />
   </ItemGroup>
 
 </Project>
