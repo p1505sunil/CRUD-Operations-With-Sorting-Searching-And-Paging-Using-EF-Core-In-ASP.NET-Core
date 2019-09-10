@@ -1,0 +1,137 @@
+﻿@model DataContext.Models.Employee
+
+@{
+    ViewData["Title"] = Model != null ? "Edit" : "Create";
+}
+
+<h2>@ViewData["Title"] Employee</h2>
+
+<hr />
+<div class="row">
+    <div class="col-lg-12">
+        <form asp-action="ViewData[" Title"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-lg-2">
+                        <label asp-for="EmployeeCode" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="EmployeeCode" class="form-control" />
+                        <span asp-validation-for="EmployeeCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-2">
+                        <label asp-for="EmployeeName" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="EmployeeName" class="form-control" />
+                        <span asp-validation-for="EmployeeName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-2">
+                        <label asp-for="DateOfBirth" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="DateOfBirth" class="form-control" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-2">
+                        <label asp-for="JoinDate" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="JoinDate" class="form-control" />
+                        <span asp-validation-for="JoinDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-2">
+                        <label asp-for="DepartmentId" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.Departments,"DepartmentId","DepartmentName"))" class="form-control">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-2">
+                        <label asp-for="DesignationId" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <select asp-for="DesignationId" asp-items="@(new SelectList(ViewBag.Designations,"DesignationId","DesignationName"))" class="form-control">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="DesignationId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-2">
+                        <label asp-for="Salary" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="Salary" class="form-control" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-4">
+
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-2">
+                        <label asp-for="Address" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-2">
+                        <label asp-for="State" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-2">
+                        <label asp-for="City" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-2">
+                        <label asp-for="ZipCode" class="control-label"></label>
+                    </div>
+                    <div class="col-lg-4">
+                        <input asp-for="ZipCode" class="form-control" />
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <hr />
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-3">
+                    </div>
+                    <div class="col-lg-7">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        &nbsp;
+                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
