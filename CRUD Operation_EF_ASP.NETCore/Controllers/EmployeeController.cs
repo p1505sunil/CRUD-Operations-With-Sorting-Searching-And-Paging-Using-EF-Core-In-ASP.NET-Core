@@ -74,3 +74,84 @@ namespace EF_Crud_Samples.Controllers
             this.GetModelData();
             return View("Create", model);
         }
+
+        public IActionResult Delete(int id)
+        {
+            Employee data = this._dbContext.Employees.Where(p => p.Id == id).FirstOrDefault();
+            if (data != null)
+            {
+                _dbContext.Employees.Remove(data);
+                _dbContext.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        #region Private method
+        private void GetModelData()
+        {
+            ViewBag.Departments = this._dbContext.Departments.ToList();
+            ViewBag.Designations = this._dbContext.Designations.ToList();
+        }
+
+        private List<Employee> GetEmployeeList()
+        {
+            return (from employee in this._dbContext.Employees
+                    join desig in this._dbContext.Designations on employee.DepartmentId equals desig.DesignationId
+                    join dept in this._dbContext.Departments on employee.DepartmentId equals dept.DepartmentId
+                    select new Employee
+                    {
+                        Id = employee.Id,
+                        EmployeeCode = employee.EmployeeCode,
+                        EmployeeName = employee.EmployeeName,
+                        DateOfBirth = employee.DateOfBirth,
+                        JoinDate = employee.JoinDate,
+                        Salary = employee.Salary,
+                        Address = employee.Address,
+                        State = employee.State,
+                        City = employee.City,
+                        ZipCode = employee.ZipCode,
+                        DepartmentId = employee.DepartmentId,
+                        DepartmentName = dept.DepartmentName,
+                        DesignationId = employee.DesignationId,
+                        DesignationName = desig.DesignationName
+                    }).AsNoTracking().ToList();
+        }
+
+        private List<Employee> SortEmployeeData(List<Employee> employees, string sortField, string currentSortField, string currentSortOrder)
+        {
+            if (string.IsNullOrEmpty(sortField))
+            {
+                ViewBag.SortField = "EmployeeCode";
+                ViewBag.SortOrder = "Asc";
+            }
+            else
+            {
+                if (currentSortField == sortField)
+                {
+                    ViewBag.SortOrder = currentSortOrder == "Asc" ? "Desc" : "Asc";
+                }
+                else
+                {
+                    ViewBag.SortOrder = "Asc";
+                }
+                ViewBag.SortField = sortField;
+            }
+
+            var propertyInfo = typeof(Employee).GetProperty(ViewBag.SortField);
+            if (ViewBag.SortOrder == "Asc")
+            {
+                employees = employees.OrderBy(s => propertyInfo.GetValue(s, null)).ToList();
+            }
+            else
+            {
+                employees = employees.OrderByDescending(s => propertyInfo.GetValue(s, null)).ToList();
+            }
+            //int pageSize = 10;
+            //int pageNumber = (pageNo ?? 1);
+            //return employees.ToPagedList(pageNumber, pageSize).ToList();
+            return employees;
+
+        }
+        #endregion
+    }
+}
