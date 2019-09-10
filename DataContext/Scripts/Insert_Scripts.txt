@@ -1,0 +1,11 @@
+﻿Insert into dbo.Designation(DesignationCode,DesignationName)
+select Alias,Designation from Pers_ProjectDB.Core.Designation
+
+Insert into dbo.Department(Alias,DepartmentName)
+select Alias,DepartmentName from Pers_ProjectDB.Core.Department
+
+Insert into Dbo.Employee(EmployeeCode,EmployeeName,DepartmentId,DesignationId,DateOfBirth,JoinDate,Salary,
+[Address],State,City,ZipCode)
+Select EmployeeCode,EmployeeName,DepartmentId,DesignationId,DateOfBirth,JoinDate,Salary,
+[AddressLine],State,City,ZipCode from Pers_ProjectDB.Core.Employee
+
